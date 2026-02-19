@@ -7,7 +7,7 @@ from PIL import Image
 from torchvision import models, transforms
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-MODEL_PATH = "best_model.pth"
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "best_model.pth")
 
 
 def load_classifier(model_path: str) -> Tuple[torch.nn.Module, List[str]]:
