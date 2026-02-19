@@ -7,7 +7,14 @@ import sys
 from models.backbone import FeatureExtractor
 from utils.config import DATA_DIR, INDEX_PATH, LABELS_PATH, EMBEDDING_DIM
 
+VALID_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
+
 def build_index():
+    if not os.path.isdir(DATA_DIR):
+        raise FileNotFoundError(f"Data directory not found: {DATA_DIR}")
+
+    os.makedirs(os.path.dirname(INDEX_PATH), exist_ok=True)
+
     extractor = FeatureExtractor()
     embeddings = []
     labels = []
@@ -18,10 +25,19 @@ def build_index():
         class_path = os.path.join(DATA_DIR, class_name)
         if os.path.isdir(class_path):
             for img_name in os.listdir(class_path):
+                _, ext = os.path.splitext(img_name)
+                if ext.lower() not in VALID_IMAGE_EXTENSIONS:
+                    continue
                 img_path = os.path.join(class_path, img_name)
                 all_images.append((img_path, class_name))
 
     total_images = len(all_images)
+    if total_images == 0:
+        raise ValueError(
+            f"No valid images found under: {DATA_DIR}. "
+            f"Supported extensions: {sorted(VALID_IMAGE_EXTENSIONS)}"
+        )
+
     start_time = time.time()
 
     for idx, (img_path, class_name) in enumerate(all_images, 1):
