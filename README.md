@@ -47,10 +47,33 @@ python main.py --predict /path/to/image.jpg
 
 ```bash
 python app.py
+### 1) بناء الفهرس
+
+```bash
+python main.py --build
+```
+
+### 2) التنبؤ لصورة
+
+```bash
+python main.py --predict /path/to/image.jpg
+```
+
+### 3) تشغيل واجهة Gradio
+
+```bash
+python app.py
+```
+
+أو:
+
+```bash
+python core/train.py
 ```
 
 ## ملاحظات مهمة
 
 - تأكد من وجود بيانات الصور داخل مجلد `data/` حسب الفئات.
 - إذا لم يكن `best_model.pth` موجودًا، شغّل `python core/train.py` أولًا لإنشائه.
+- تأكد من وجود `best_model.pth` في جذر المشروع.
 - في حال عدم توفر `faiss` أو `gradio` ستفشل أوامر مرتبطة بها وقت التشغيل.
