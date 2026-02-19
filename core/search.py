@@ -17,7 +17,7 @@ def search_image(image_path):
 
     extractor = FeatureExtractor()
 
-def search_image(image_path: str) -> Tuple[str, float]:
+def search_image(image_path: str) -> tuple[str, float]:
     if not os.path.isfile(image_path):
         raise FileNotFoundError(f"Image not found: {image_path}")
 
