@@ -1,5 +1,8 @@
 import argparse
 
+from core.build_index import build_index
+from services.predict import predict
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="AI engine CLI")
@@ -12,13 +15,9 @@ def main() -> None:
     args = parse_args()
 
     if args.build:
-        from core.build_index import build_index
-
         build_index()
 
     if args.predict:
-        from services.predict import predict
-
         predict(args.predict)
 
 
