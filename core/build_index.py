@@ -18,6 +18,7 @@ def build_index() -> None:
 
     os.makedirs(os.path.dirname(INDEX_PATH), exist_ok=True)
 
+
 VALID_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 def build_index():
@@ -33,6 +34,15 @@ def build_index():
     all_images = []
     for class_name in sorted(os.listdir(DATA_DIR)):
         class_path = os.path.join(DATA_DIR, class_name)
+        if not os.path.isdir(class_path):
+            continue
+
+        for img_name in sorted(os.listdir(class_path)):
+            _, ext = os.path.splitext(img_name)
+            if ext.lower() not in VALID_IMAGE_EXTENSIONS:
+                continue
+            img_path = os.path.join(class_path, img_name)
+            all_images.append((img_path, class_name))
         if os.path.isdir(class_path):
             for img_name in os.listdir(class_path):
                 _, ext = os.path.splitext(img_name)
