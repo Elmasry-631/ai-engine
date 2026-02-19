@@ -29,6 +29,7 @@ def load_classifier(model_path: str) -> Tuple[torch.nn.Module, List[str]]:
     return model, class_names
 
 
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "best_model.pth")
 

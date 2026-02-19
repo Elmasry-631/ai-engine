@@ -19,6 +19,7 @@ def build_index() -> None:
     os.makedirs(os.path.dirname(INDEX_PATH), exist_ok=True)
 
 
+
 VALID_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 def build_index():

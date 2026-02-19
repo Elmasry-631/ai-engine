@@ -25,6 +25,28 @@ pip install -r requirements.txt
 
 ## طريقة الاستخدام
 
+### 1) تدريب الموديل (إنشاء `best_model.pth`)
+
+```bash
+python core/train.py --data-dir data --epochs 5
+```
+
+### 2) بناء الفهرس
+
+```bash
+python main.py --build
+```
+
+### 3) التنبؤ لصورة
+
+```bash
+python main.py --predict /path/to/image.jpg
+```
+
+### 4) تشغيل واجهة Gradio
+
+```bash
+python app.py
 ### 1) بناء الفهرس
 
 ```bash
@@ -52,5 +74,6 @@ python core/train.py
 ## ملاحظات مهمة
 
 - تأكد من وجود بيانات الصور داخل مجلد `data/` حسب الفئات.
+- إذا لم يكن `best_model.pth` موجودًا، شغّل `python core/train.py` أولًا لإنشائه.
 - تأكد من وجود `best_model.pth` في جذر المشروع.
 - في حال عدم توفر `faiss` أو `gradio` ستفشل أوامر مرتبطة بها وقت التشغيل.
