@@ -8,6 +8,17 @@ import numpy as np
 from models.backbone import FeatureExtractor
 from utils.config import INDEX_PATH, LABELS_PATH, THRESHOLD
 
+def search_image(image_path):
+    if not os.path.isfile(image_path):
+        raise FileNotFoundError(f"Image not found: {image_path}")
+
+    if not os.path.isfile(INDEX_PATH):
+        raise FileNotFoundError(f"Index file not found: {INDEX_PATH}")
+
+    if not os.path.isfile(LABELS_PATH):
+        raise FileNotFoundError(f"Labels file not found: {LABELS_PATH}")
+
+    extractor = FeatureExtractor()
 
 def search_image(image_path: str) -> Tuple[str, float]:
     if not os.path.isfile(image_path):
@@ -45,6 +56,20 @@ def search_image(image_path: str) -> Tuple[str, float]:
         raise IndexError(
             f"Predicted index {nearest_idx} out of bounds for labels length {len(labels)}"
         )
+
+    distances, indices = index.search(query, 1)
+    distance = float(distances[0][0])
+    nearest_idx = int(indices[0][0])
+
+    distance = float(D[0][0])
+    nearest_idx = int(I[0][0])
+
+    if nearest_idx < 0 or nearest_idx >= len(labels):
+        raise IndexError(
+            f"Predicted index {nearest_idx} out of bounds for labels length {len(labels)}"
+        )
+
+    nearest_label = labels[nearest_idx]
 
     nearest_label = labels[nearest_idx]
     if distance < THRESHOLD:
